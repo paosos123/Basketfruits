@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     private int maxHealth = 3;
     public int currentHealth;
     private Score score;
+    public SFXManager sfxManager;
     [SerializeField] Image[] heart;
     [SerializeField] Sprite fullHeartSprites;
     [SerializeField] Sprite emptyHeartSprites;
@@ -16,6 +17,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         score = GetComponent<Score>();
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -42,23 +44,27 @@ public class Health : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Vegetable"))
         {
+            sfxManager.VegetablesSFX();
            score.Vegetables();
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Banana"))
         {
+            sfxManager.BananasSFX();
             score.Bananas();
             Destroy(collision.gameObject);
             
         }
         else if (collision.gameObject.CompareTag("Rock"))
         {
+            sfxManager.RocksSFX();
             currentHealth -=1; 
             Debug.Log("CurrentHealth: " + currentHealth);
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Shit"))
         {
+            sfxManager.ShitsSFX();
             score.Shits();
             Destroy(collision.gameObject);
         }
